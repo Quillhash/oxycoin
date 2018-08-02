@@ -31,7 +31,7 @@ contract OxyCoin is ERC20Interface, Owned, Pausable {
     }
 
     function totalSupply() public view returns (uint) {
-        return _totalSupply.sub(balances[address(0)]);
+        return _totalSupply.sub(balances[address(0)]); // why doing this sub operation.
     }
 
     function balanceOf(address tokenOwner) public view returns (uint balance) {
@@ -69,7 +69,8 @@ contract OxyCoin is ERC20Interface, Owned, Pausable {
         ApproveAndCallFallBack(spender).receiveApproval(msg.sender, tokens, this, data);
         return true;
     }
-
+// use safe math
+//require _value > 0;
     function burn(uint _value) public returns (bool success) {
         require(balances[msg.sender] >= _value);
         balances[msg.sender] -= _value;
@@ -77,7 +78,7 @@ contract OxyCoin is ERC20Interface, Owned, Pausable {
         emit Burn(msg.sender, _value);
         return true;
     }
-
+// use safe math
     function burnFrom(address from, uint _value) public returns (bool success) {
         require(balances[from] >= _value);
         require(_value <= allowed[from][msg.sender]);

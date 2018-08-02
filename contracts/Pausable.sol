@@ -1,5 +1,5 @@
 pragma solidity ^0.4.24;
-
+import './Owned.sol';
 contract Pausable is Owned {
     event Pause();
     event Unpause();
